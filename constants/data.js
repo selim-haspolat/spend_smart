@@ -1,0 +1,51 @@
+export const navItems = [
+  {
+    title: "Dashboard",
+    href: "",
+    icon: "dashboard",
+    label: "Dashboard",
+    soon: true,
+  },
+  {
+    title: "Home",
+    href: "/",
+    icon: "home",
+    label: "Home",
+    soon: false,
+  },
+  {
+    title: "Products",
+    href: "/products",
+    icon: "list",
+    label: "user",
+    soon: false,
+  },
+  {
+    title: "Purchases",
+    href: "/purchases",
+    icon: "shoppingCart",
+    label: "Purchases",
+    soon: false,
+  },
+  {
+    title: "Profile",
+    href: "/profile",
+    icon: "profile",
+    label: "profile",
+    soon: true,
+  },
+  {
+    title: "Kanban",
+    href: "/kanban",
+    icon: "kanban",
+    label: "kanban",
+    soon: true,
+  },
+  {
+    title: "Login",
+    href: "/login",
+    icon: "login",
+    label: "login",
+    soon: false,
+  },
+];
