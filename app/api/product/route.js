@@ -102,15 +102,13 @@ export const PATCH = async (request) => {
     const url = new URL(request.url);
     const searchParams = new URLSearchParams(url.searchParams);
 
-    const id = searchParams.get(id);
+    const id = searchParams.get('id');
+
     const { name, value, icon } = body;
 
     if (
-      !id ||
-      isNaN(id) ||
       !name ||
       !value ||
-      name.trim() === "" ||
       isNaN(value)
     ) {
       return NextResponse.json({ message: "Invalid data" }, { status: 400 });
