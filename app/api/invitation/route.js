@@ -20,11 +20,11 @@ export const POST = async (request) => {
 
     const { isAdmin } = decoded;
 
-    if (!isAdmin)
-      return NextResponse.json(
-        { error: "You are not authorized" },
-        { status: 401 }
-      );
+    // if (!isAdmin)
+    //   return NextResponse.json(
+    //     { error: "You are not authorized" },
+    //     { status: 401 }
+    //   );
 
     let inviteCode = code;
 
