@@ -98,7 +98,11 @@ export const GET = async (request) => {
 export const PATCH = async (request) => {
   try {
     const body = await request.json();
-    const { id } = request.params;
+
+    const url = new URL(request.url);
+    const searchParams = new URLSearchParams(url.searchParams);
+
+    const id = searchParams.get(id);
     const { name, value, icon } = body;
 
     if (
@@ -146,7 +150,7 @@ export const PATCH = async (request) => {
       data: {
         name,
         value: parseFloat(value),
-        icon
+        icon,
       },
     });
 
