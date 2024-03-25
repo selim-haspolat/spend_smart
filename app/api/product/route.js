@@ -153,11 +153,10 @@ export const PATCH = async (request) => {
 
 export const Delete = async (request) => {
   try {
-    const { id } = request.params;
+    const url = new URL(request.url);
+    const searchParams = new URLSearchParams(url.searchParams);
 
-    if (!id || isNaN(id)) {
-      return NextResponse.json({ message: "Invalid id" }, { status: 400 });
-    }
+    const id = searchParams.get("id");
 
     const access_token = request.cookies.get("access_token")?.value;
 
@@ -171,7 +170,7 @@ export const Delete = async (request) => {
 
     const product = await prisma.product.findUnique({
       where: {
-        id: parseInt(id),
+        id: id,
       },
     });
 
@@ -188,7 +187,7 @@ export const Delete = async (request) => {
 
     await prisma.product.delete({
       where: {
-        id: parseInt(id),
+        id: id,
       },
     });
 
