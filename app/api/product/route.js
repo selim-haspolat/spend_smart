@@ -102,15 +102,11 @@ export const PATCH = async (request) => {
     const url = new URL(request.url);
     const searchParams = new URLSearchParams(url.searchParams);
 
-    const id = searchParams.get('id');
+    const id = searchParams.get("id");
 
     const { name, value, icon } = body;
 
-    if (
-      !name ||
-      !value ||
-      isNaN(value)
-    ) {
+    if (!name || !value || isNaN(value)) {
       return NextResponse.json({ message: "Invalid data" }, { status: 400 });
     }
 
@@ -126,7 +122,7 @@ export const PATCH = async (request) => {
 
     const product = await prisma.product.findUnique({
       where: {
-        id: parseInt(id),
+        id: id,
       },
     });
 
