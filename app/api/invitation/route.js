@@ -8,7 +8,7 @@ export const POST = async (request) => {
     const body = await request.json();
     const { code } = body;
 
-    const access_token = request.cookies.get("access_token")?.value;
+    // const access_token = request.cookies.get("access_token")?.value;
 
     // if (!access_token)
     //   return NextResponse.json(
@@ -16,9 +16,9 @@ export const POST = async (request) => {
     //     { status: 400 }
     //   );
 
-    const decoded = jwt.verify(access_token, process.env.JWT);
+    // const decoded = jwt.verify(access_token, process.env.JWT);
 
-    const { isAdmin } = decoded;
+    // const { isAdmin } = decoded;
 
     // if (!isAdmin)
     //   return NextResponse.json(
