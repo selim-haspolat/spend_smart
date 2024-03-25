@@ -104,6 +104,8 @@ export const PATCH = async (request) => {
 
     const id = searchParams.get("id");
 
+    return NextResponse.json({ message: id}, { status: 310 });
+
     const { name, value, icon } = body;
 
     if (!name || !value || isNaN(value)) {
