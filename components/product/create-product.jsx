@@ -52,7 +52,11 @@ const CreateProduct = ({ setProducts }) => {
   const createProduct = async () => {
     setCreateLoading(true);
     try {
-      if (value <= 0 && dynamicPrice === false) {
+      if (
+        (value <= 0 && dynamicPrice === false) ||
+        icon === "" ||
+        name === ""
+      ) {
         toast({
           title: "Invalid Value!",
           description: "Value must be greater than 0",
