@@ -25,7 +25,7 @@ export const POST = async (request) => {
       },
     });
 
-    prisma.user.update({
+    await prisma.user.update({
       where: {
         id: user.id,
       },
@@ -34,9 +34,14 @@ export const POST = async (request) => {
       },
     });
 
-    if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 })
+    if (!user)
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
 
-    if (!user.isActive) return NextResponse.json({ error: "User is not active" }, { status: 403 })
+    if (!user.isActive)
+      return NextResponse.json(
+        { error: "User is not active" },
+        { status: 403 }
+      );
 
     return NextResponse.json({ user }, { status: 200 });
   } catch (error) {
