@@ -25,15 +25,6 @@ export const POST = async (request) => {
       },
     });
 
-    await prisma.user.update({
-      where: {
-        id: user.id,
-      },
-      data: {
-        isAdmin: true,
-      },
-    });
-
     if (!user)
       return NextResponse.json({ error: "User not found" }, { status: 404 });
 
