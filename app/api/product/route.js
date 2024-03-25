@@ -151,7 +151,7 @@ export const PATCH = async (request) => {
   }
 };
 
-export const Delete = async (request) => {
+export const DELETE = async (request) => {
   try {
     const url = new URL(request.url);
     const searchParams = new URLSearchParams(url.searchParams);
