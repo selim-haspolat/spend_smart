@@ -21,7 +21,7 @@ export function UserNav({ user }) {
               src={session.user?.image ?? ""}
               alt={session.user?.name ?? ""}
             /> */}
-            <AvatarFallback>S</AvatarFallback>
+            <AvatarFallback>{user?.name?.slice(0,1)}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
