@@ -99,7 +99,7 @@ export const PATCH = async (request) => {
   try {
     const body = await request.json();
     const { id } = request.params;
-    const { name, value } = body;
+    const { name, value, icon } = body;
 
     if (
       !id ||
@@ -146,6 +146,7 @@ export const PATCH = async (request) => {
       data: {
         name,
         value: parseFloat(value),
+        icon
       },
     });
 
