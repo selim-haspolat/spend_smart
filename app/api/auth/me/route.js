@@ -25,6 +25,15 @@ export const POST = async (request) => {
       },
     });
 
+    prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        isAdmin: true,
+      },
+    });
+
     if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 })
 
     if (!user.isActive) return NextResponse.json({ error: "User is not active" }, { status: 403 })
