@@ -10,11 +10,11 @@ export const POST = async (request) => {
 
     const access_token = request.cookies.get("access_token")?.value;
 
-    if (!access_token)
-      return NextResponse.json(
-        { error: "Access token not found" },
-        { status: 400 }
-      );
+    // if (!access_token)
+    //   return NextResponse.json(
+    //     { error: "Access token not found" },
+    //     { status: 400 }
+    //   );
 
     const decoded = jwt.verify(access_token, process.env.JWT);
 
