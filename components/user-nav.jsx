@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export function UserNav() {
+export function UserNav({ user }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -30,11 +30,11 @@ export function UserNav() {
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">
               {/* {session.user?.name} */}
-              selim
+              {user?.name}
             </p>
             <p className="text-xs leading-none text-muted-foreground">
               {/* {session.user?.email} */}
-              selimhaspolat@gmail.com
+              {user?.email}
             </p>
           </div>
         </DropdownMenuLabel>

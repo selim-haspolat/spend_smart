@@ -8,13 +8,16 @@ import { useEffect } from "react";
 
 export default function DashboardLayout({ children }) {
   const router = useRouter();
-  
+
+  const [user, setUser] = useState(null);
+
   const getMe = async () => {
     try {
       const {
         data: { user },
       } = await instance.post("/auth/me");
 
+      setUser(user);
     } catch (error) {
       router.push("/login");
     }
@@ -26,7 +29,7 @@ export default function DashboardLayout({ children }) {
 
   return (
     <>
-      <Header />
+      <Header user={user} />
       <div className="flex">
         <Sidebar />
         <main className="w-full mt-16 p-4 md:p-8 pt-6">{children}</main>
