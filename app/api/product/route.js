@@ -104,11 +104,7 @@ export const PATCH = async (request) => {
 
     const id = searchParams.get("id");
 
-    const { name, value, icon } = body;
-
-    if (!name || !value || isNaN(value)) {
-      return NextResponse.json({ message: "Invalid data" }, { status: 400 });
-    }
+    const { name, value, dynamic, icon } = body;
 
     const access_token = request.cookies.get("access_token")?.value;
 
@@ -144,6 +140,7 @@ export const PATCH = async (request) => {
       data: {
         name,
         value: parseFloat(value),
+        dynamic,
         icon,
       },
     });
