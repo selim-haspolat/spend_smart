@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { UserNav } from "../user-nav";
 import { ModeToggle } from "../ThemeToggle/theme-toggle";
+import { MobileSidebar } from "./mobile-sidebar";
 
 const Header = () => {
   return (
@@ -27,7 +28,9 @@ const Header = () => {
             </svg>
           </Link>
         </div>
-        <div className={cn("block lg:!hidden")}>{/* <MobileSidebar /> */}</div>
+        <div className={cn("block lg:!hidden")}>
+          <MobileSidebar />
+        </div>
 
         <div className="flex items-center gap-4">
           <UserNav />
