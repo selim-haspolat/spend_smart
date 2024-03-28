@@ -1,6 +1,7 @@
 import {
   AlertTriangle,
   Apple,
+  BusFront,
   Utensils,
   ArrowRight,
   Check,
@@ -42,7 +43,7 @@ import {
 
 export const Icons = {
   apple: Apple,
-  
+  busFront: BusFront,
   dashboard: LayoutDashboardIcon,
   shoppingCartIcon: ShoppingCartIcon,
   logo: Command,

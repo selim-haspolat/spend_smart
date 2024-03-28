@@ -47,6 +47,10 @@ const CreateProduct = ({ setProducts }) => {
       text: "Home",
       icon: "home",
     },
+    {
+      text: "Bus",
+      icon: "busFront",
+    },
   ];
 
   const createProduct = async () => {

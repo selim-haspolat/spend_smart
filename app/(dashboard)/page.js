@@ -5,29 +5,30 @@ import ProductLoading from "@/components/product/product-loading";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
 import { toast } from "@/components/ui/use-toast";
 import instance from "@/lib/axios-instance";
-import { MinusIcon, PlusIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Bar, BarChart, ResponsiveContainer } from "recharts";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectLoading, setSelectLoading] = useState(false);
 
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const [goal, setGoal] = useState(150);
+  const [customPrice, setCustomPrice] = useState(100);
   const [open, setOpen] = useState(false);
 
   const router = useRouter();
@@ -50,6 +51,8 @@ export default function Home() {
   };
 
   const createPurchase = async (value, product) => {
+    setSelectLoading(true);
+    if (selectLoading) return;
     try {
       await instance.post("/purchase", {
         value: value,
@@ -61,7 +64,6 @@ export default function Home() {
         description: "You have successfully purchased!",
       });
 
-      setGoal(150);
       setOpen(false);
     } catch (error) {
       toast({
@@ -69,20 +71,18 @@ export default function Home() {
         description: error.response.data.message,
         variant: "destructive",
       });
+    } finally {
+      setSelectLoading(false);
     }
   };
-
-  function onClick(adjustment) {
-    setGoal(Math.max(0, Math.min(1000, goal + adjustment)));
-  }
 
   useEffect(() => {
     getProducts();
   }, []);
 
   return (
-    <main>
-      <Drawer open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <main>
         <h2 className="text-3xl font-bold tracking-tight mb-5">
           Hi, Welcome back 👋
         </h2>
@@ -106,7 +106,7 @@ export default function Home() {
               const Icon = Icons[p.icon];
 
               return p.dynamic ? (
-                <DrawerTrigger asChild>
+                <DialogTrigger asChild>
                   <Card
                     key={i}
                     onClick={() => setSelectedProduct(p)}
@@ -120,7 +120,7 @@ export default function Home() {
                       <p className="text-end">{p.dynamic ? "** " : p.value}₺</p>
                     </CardContent>
                   </Card>
-                </DrawerTrigger>
+                </DialogTrigger>
               ) : (
                 <Card
                   key={i}
@@ -139,67 +139,34 @@ export default function Home() {
             })}
           </div>
         )}
-        <DrawerContent>
-          <div className="mx-auto w-full max-w-sm">
-            <DrawerHeader>
-              <DrawerTitle>Move Goal</DrawerTitle>
-              <DrawerDescription>
-                Set your daily activity goal.
-              </DrawerDescription>
-            </DrawerHeader>
-            <div className="p-4 pb-0">
-              <div className="flex items-center justify-center space-x-2">
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="h-8 w-8 shrink-0 rounded-full"
-                  onClick={() => onClick(-10)}
-                  disabled={goal <= 0}
-                >
-                  <MinusIcon className="h-4 w-4" />
-                  <span className="sr-only">Decrease</span>
-                </Button>
-                <div className="flex-1 text-center">
-                  <div className="text-7xl font-bold tracking-tighter">
-                    {goal}
-                  </div>
-                </div>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="h-8 w-8 shrink-0 rounded-full"
-                  onClick={() => onClick(10)}
-                  disabled={goal >= 1000}
-                >
-                  <PlusIcon className="h-4 w-4" />
-                  <span className="sr-only">Increase</span>
-                </Button>
-              </div>
-              <div className="mt-3 h-[120px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart>
-                    <Bar
-                      dataKey="goal"
-                      style={{
-                        fill: "hsl(var(--foreground))",
-                        opacity: 0.9,
-                      }}
-                    />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+        <DialogContent className="sm:max-w-[425px]">
+          {/* <DialogHeader>
+            <DialogTitle>Edit profile</DialogTitle>
+            <DialogDescription>
+              Make changes to your profile here. Click save when you're done.
+            </DialogDescription>
+          </DialogHeader> */}
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="name" className="text-right">
+                Price
+              </Label>
+              <Input
+                value={customPrice}
+                className="col-span-3"
+                onChange={(e) => setCustomPrice(e.target.value)}
+              />
             </div>
-            <DrawerFooter>
-              <Button onClick={() => createPurchase(goal, selectedProduct)}>
-                Submit
-              </Button>
-              <DrawerClose asChild>
-                <Button variant="outline">Cancel</Button>
-              </DrawerClose>
-            </DrawerFooter>
           </div>
-        </DrawerContent>
-      </Drawer>
-    </main>
+          <DialogFooter>
+            <Button
+              onClick={() => createPurchase(customPrice, selectedProduct)}
+            >
+              Save changes
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </main>
+    </Dialog>
   );
 }
